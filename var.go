@@ -1,9 +1,8 @@
 package main
 
-
 func main() {
 
-c := &b
-var b string
+	c := &b
+	var b string
 
 }

@@ -3,39 +3,38 @@ package main
 // import "github.com/astaxie/beego"
 
 import (
-  "fmt"
-  // "runtime"
-  "net/http"
-  "reflect"
-  "io/ioutil"
+	"fmt"
+	// "runtime"
+	"io/ioutil"
+	"net/http"
+	"reflect"
 )
 
 type Human struct {
-  name string
-  age int
-  phone string
+	name  string
+	age   int
+	phone string
 }
 
 type skill []string
 
 type Student struct {
-  *Human
-  school string
-  loan float32
-  skill
-  int
+	*Human
+	school string
+	loan   float32
+	skill
+	int
 }
 
 type Employee struct {
-  Human
-  company string
-  money float32
+	Human
+	company string
+	money   float32
 }
 
-
 func (h *Human) myname() {
-  h.name = "wdd"
-  fmt.Println(h.name)
+	h.name = "wdd"
+	fmt.Println(h.name)
 }
 
 // func (h Student) myname() {
@@ -43,51 +42,46 @@ func (h *Human) myname() {
 //   fmt.Println(h.name)
 // }
 
-func (s Student) myschool() string{
-  // fmt.Println(s.school)
-  return s.school
+func (s Student) myschool() string {
+	// fmt.Println(s.school)
+	return s.school
 }
 
-
-type Name interface{
-  myname()
+type Name interface {
+	myname()
 }
 
-type School interface{
-  myschool() string
+type School interface {
+	myschool() string
 }
-
-
 
 func sing(s School) string {
- return s.myschool()
+	return s.myschool()
 }
 
 func main() {
-  var s School
-  student := Student{Human: &Human{name: "chenxin", age: 32, phone: "18357173671"}, school: "beego", skill: []string{"aa", "cc"}}
-  s = student
-  // student.myschool()
-  fmt.Println(s.myschool())
-  student.myname()
-  fmt.Println(student.Human.name)
+	var s School
+	student := Student{Human: &Human{name: "chenxin", age: 32, phone: "18357173671"}, school: "beego", skill: []string{"aa", "cc"}}
+	s = student
+	// student.myschool()
+	fmt.Println(s.myschool())
+	student.myname()
+	fmt.Println(student.Human.name)
 
-resp, _ := http.Get("http://example.com/")
+	resp, _ := http.Get("http://example.com/")
 
+	fmt.Println(reflect.ValueOf(resp.Body))
 
-fmt.Println(reflect.ValueOf(resp.Body))
+	body, _ := ioutil.ReadAll(resp.Body)
 
-body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
+	// fmt.Println(http.ErrHeaderTooLong)
 
+	// ss := sing(student)
 
-fmt.Println(body)
-fmt.Println(http.ErrHeaderTooLong)
-
-
-ss := sing(student)
-
-fmt.Println(ss)
+	// fmt.Println(ss)
 }
+
 // func main(){
 //     beego.Run()
 // }

@@ -1,30 +1,25 @@
 package synn
 
 import (
-  "sync"
+	"sync"
 )
 
 type Student struct {
-
- name string
- man  *Man
-
+	name string
+	man  *Man
 }
 
 type Man struct {
-  lock sync.Mutex
-
+	lock sync.Mutex
 }
 
 func (man *Man) syn() {
-  man.lock.Lock()
-  println("syn")
-  println(man)
+	man.lock.Lock()
+	println("syn")
+	println(man)
 }
 
-
 // func main() {
-
 
 // println("111")
 
